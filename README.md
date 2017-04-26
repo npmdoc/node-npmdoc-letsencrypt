@@ -1,6 +1,6 @@
 # npmdoc-letsencrypt
 
-#### api documentation for  [letsencrypt (v2.1.8)](https://github.com/Daplie/node-letsencrypt#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-letsencrypt.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-letsencrypt) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-letsencrypt.svg)](https://travis-ci.org/npmdoc/node-npmdoc-letsencrypt)
+#### basic api documentation for  [letsencrypt (v2.1.8)](https://github.com/Daplie/node-letsencrypt#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-letsencrypt.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-letsencrypt) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-letsencrypt.svg)](https://travis-ci.org/npmdoc/node-npmdoc-letsencrypt)
 
 #### Let's Encrypt for node.js on npm
 
@@ -90,7 +90,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "version": "2.1.8"
+    "version": "2.1.8",
+    "bin": {}
 }
 ```
 
