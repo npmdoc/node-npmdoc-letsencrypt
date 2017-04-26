@@ -153,14 +153,77 @@
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.letsencrypt._undefine">module letsencrypt._undefine</a><ol>
+    <li class="apidocModuleLi"><a href="#apidoc.module.letsencrypt.LE">module letsencrypt.LE</a><ol>
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.letsencrypt._undefine._undefine">
-            function <span class="apidocSignatureSpan">letsencrypt.</span>_undefine
+            <a class="apidocElementLiA" href="#apidoc.element.letsencrypt.LE._undefine">
+            function <span class="apidocSignatureSpan">letsencrypt.LE.</span>_undefine
             <span class="apidocSignatureSpan">(le)</span>
             </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.letsencrypt.LE.create">
+            function <span class="apidocSignatureSpan">letsencrypt.LE.</span>create
+            <span class="apidocSignatureSpan">(le)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">letsencrypt.LE.</span>rsaKeySize</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">letsencrypt.</span>LE</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">letsencrypt.LE.</span>_undefined</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">letsencrypt.LE.</span>challengeTypes</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">letsencrypt.LE.</span>defaults</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">letsencrypt.LE.</span>acmeChallengePrefix</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">letsencrypt.LE.</span>challengeType</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">letsencrypt.LE.</span>productionServerUrl</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">letsencrypt.LE.</span>stagingServerUrl</span>
 
         </li>
 
@@ -172,19 +235,6 @@
 
             <a class="apidocElementLiA" href="#apidoc.element.letsencrypt.core.create">
             function <span class="apidocSignatureSpan">letsencrypt.core.</span>create
-            <span class="apidocSignatureSpan">(le)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.letsencrypt.create">module letsencrypt.create</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.letsencrypt.create.create">
-            function <span class="apidocSignatureSpan">letsencrypt.</span>create
             <span class="apidocSignatureSpan">(le)</span>
             </a>
 
@@ -422,21 +472,21 @@ le.agreeToTerms = le.agreeToTerms || function (args, agreeCb) {
     }
     if (!challenger.loopback || 5 !== challenger.loopback.length) ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+});
 
-### Overly Simplified Example
-
-Against my better judgement I&#x27;m providing a terribly oversimplified example
-of how to use this library:
-
-```javascript
-var le = require(&#x27;letsencrypt&#x27;).<span class="apidocCodeKeywordSpan">create</span>({ server: &#x27;staging&#x27; });
-
-var opts = {
-domains: [&#x27;example.com&#x27;], email: &#x27;user@email.com&#x27;, agreeTos: true
+return le;
 };
+LE.create = function (le) {
+var PromiseA = require(&#x27;bluebird&#x27;);
 
-le.register(opts).then(function (certs) {
-console.log(certs);
+le.acme = le.acme || ACME.<span class="apidocCodeKeywordSpan">create</span>({ debug: le.debug });
+le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
+le.core = require(&#x27;./lib/core&#x27;);
+var log = le.log || _log;
+
+if (!le.challenges) {
+  le.challenges = {};
+}
 ...</pre></li>
     </ul>
 
@@ -468,12 +518,12 @@ console.log(certs);
 </div>
 
 <div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.letsencrypt._undefine" id="apidoc.module.letsencrypt._undefine">module letsencrypt._undefine</a></h1>
+<h1><a href="#apidoc.module.letsencrypt.LE" id="apidoc.module.letsencrypt.LE">module letsencrypt.LE</a></h1>
 
 
     <h2>
-        <a href="#apidoc.element.letsencrypt._undefine._undefine" id="apidoc.element.letsencrypt._undefine._undefine">
-        function <span class="apidocSignatureSpan">letsencrypt.</span>_undefine
+        <a href="#apidoc.element.letsencrypt.LE._undefine" id="apidoc.element.letsencrypt.LE._undefine">
+        function <span class="apidocSignatureSpan">letsencrypt.LE.</span>_undefine
         <span class="apidocSignatureSpan">(le)</span>
         </a>
     </h2>
@@ -506,6 +556,168 @@ le.agreeToTerms = le.agreeToTerms || function (args, agreeCb) {
 };
 ...</pre></li>
     </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.letsencrypt.LE.create" id="apidoc.element.letsencrypt.LE.create">
+        function <span class="apidocSignatureSpan">letsencrypt.LE.</span>create
+        <span class="apidocSignatureSpan">(le)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">create = function (le) {
+  var PromiseA = require(&#x27;bluebird&#x27;);
+
+  le.acme = le.acme || ACME.create({ debug: le.debug });
+  le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
+  le.core = require(&#x27;./lib/core&#x27;);
+  var log = le.log || _log;
+
+  if (!le.challenges) {
+    le.challenges = {};
+  }
+  if (!le.challenges[&#x27;http-01&#x27;]) {
+    le.challenges[&#x27;http-01&#x27;] = require(&#x27;le-challenge-fs&#x27;).create({ debug: le.debug });
+  }
+  if (!le.challenges[&#x27;tls-sni-01&#x27;]) {
+    le.challenges[&#x27;tls-sni-01&#x27;] = require(&#x27;le-challenge-sni&#x27;).create({ debug: le.debug });
+  }
+  if (!le.challenges[&#x27;dns-01&#x27;]) {
+    try {
+      le.challenges[&#x27;dns-01&#x27;] = require(&#x27;le-challenge-ddns&#x27;).create({ debug: le.debug });
+    } catch(e) {
+      try {
+        le.challenges[&#x27;dns-01&#x27;] = require(&#x27;le-challenge-dns&#x27;).create({ debug: le.debug });
+      } catch(e) {
+        // not yet implemented
+      }
+    }
+  }
+
+  le = LE._undefine(le);
+  le.acmeChallengePrefix = LE.acmeChallengePrefix;
+  le.rsaKeySize = le.rsaKeySize || LE.rsaKeySize;
+  le.challengeType = le.challengeType || LE.challengeType;
+  le._ipc = ipc;
+  le.agreeToTerms = le.agreeToTerms || function (args, agreeCb) {
+    agreeCb(new Error(&#x22;&#x27;agreeToTerms&#x27; was not supplied to LE and &#x27;agreeTos&#x27; was not supplied to LE.register&#x22;));
+  };
+
+  if (!le.renewWithin) { le.renewWithin = 7 * DAY; }
+  // renewBy has a default in le-sni-auto
+
+  if (!le.server) {
+    throw new Error(&#x22;opts.server must be set to &#x27;staging&#x27; or a production url, such as LE.productionServerUrl&#x27;&#x22;);
+  }
+  if (&#x27;staging&#x27; === le.server) {
+    le.server = LE.stagingServerUrl;
+  }
+  else if (&#x27;production&#x27; === le.server) {
+    le.server = LE.productionServerUrl;
+  }
+
+  if (le.acme.create) {
+    le.acme = le.acme.create(le);
+  }
+  le.acme = PromiseA.promisifyAll(le.acme);
+  le._acmeOpts = le.acme.getOptions();
+  Object.keys(le._acmeOpts).forEach(function (key) {
+    if (!(key in le)) {
+      le[key] = le._acmeOpts[key];
+    }
+  });
+
+  if (le.store.create) {
+    le.store = le.store.create(le);
+  }
+  le.store = PromiseA.promisifyAll(le.store);
+  le.store.accounts = PromiseA.promisifyAll(le.store.accounts);
+  le.store.certificates = PromiseA.promisifyAll(le.store.certificates);
+  le._storeOpts = le.store.getOptions();
+  Object.keys(le._storeOpts).forEach(function (key) {
+    if (!(key in le)) {
+      le[key] = le._storeOpts[key];
+    }
+  });
+
+
+  //
+  // Backwards compat for &#x3c;= v2.1.7
+  //
+  if (le.challenge) {
+    console.warn(&#x22;Deprecated use of le.challenge. Use le.challenges[&#x27;&#x22; + LE.challengeType + &#x22;&#x27;] instead.&#x22;);
+    le.challenges[le.challengeType] = le.challenge;
+  }
+
+  LE.challengeTypes.forEach(function (challengeType) {
+    var challenger = le.challenges[challengeType];
+
+    if (!challenger) {
+      return;
+    }
+
+    if (challenger.create) {
+      challenger = le.challenges[challengeType] = challenger.create(le);
+    }
+    challenger = le.challenges[challengeType] = PromiseA.promisifyAll(challenger);
+    le[&#x27;_challengeOpts_&#x27; + challengeType] = challenger.getOptions();
+    Object.keys(le[&#x27;_challengeOpts_&#x27; + challengeType]).forEach(function (key) {
+      if (!(key in le)) {
+        le[key] = le[&#x27;_challengeOpts_&#x27; + challengeType][key];
+      }
+    });
+
+    // TODO wrap these here and now with tplCopy?
+    if (!challenger.set || 5 !== challenger.set.length) {
+      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].set receives the wrong number of arguments.&#x22;
+        + &#x22; You must define setChallenge as function (opts, domain, token, keyAuthorization, cb) { }&#x22;);
+    }
+    if (challenger.get &#x26;&#x26; 4 !== challenger.get.length) {
+      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].get receives the wrong number of arguments.&#x22;
+        + &#x22; You must define getChallenge as function (opts, domain, token, cb) { }&#x22;);
+    }
+    if (!challenger.remove || 4 !== challenger.remove.length) {
+      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].remove receives the wrong number of arguments.&#x22;
+        + &#x22; You must define removeChallenge as function (opts, domain, token, cb) { }&#x22;);
+    }
+    if (!challenger.loopback || 5 !== challenger.loopback.length) ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+});
+
+return le;
+};
+LE.create = function (le) {
+var PromiseA = require(&#x27;bluebird&#x27;);
+
+le.acme = le.acme || ACME.<span class="apidocCodeKeywordSpan">create</span>({ debug: le.debug });
+le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
+le.core = require(&#x27;./lib/core&#x27;);
+var log = le.log || _log;
+
+if (!le.challenges) {
+  le.challenges = {};
+}
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </div>
@@ -643,170 +855,21 @@ le.agreeToTerms = le.agreeToTerms || function (args, agreeCb) {
             return account;
           } else { ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+});
 
-### Overly Simplified Example
-
-Against my better judgement I&#x27;m providing a terribly oversimplified example
-of how to use this library:
-
-```javascript
-var le = require(&#x27;letsencrypt&#x27;).<span class="apidocCodeKeywordSpan">create</span>({ server: &#x27;staging&#x27; });
-
-var opts = {
-domains: [&#x27;example.com&#x27;], email: &#x27;user@email.com&#x27;, agreeTos: true
+return le;
 };
+LE.create = function (le) {
+var PromiseA = require(&#x27;bluebird&#x27;);
 
-le.register(opts).then(function (certs) {
-console.log(certs);
-...</pre></li>
-    </ul>
+le.acme = le.acme || ACME.<span class="apidocCodeKeywordSpan">create</span>({ debug: le.debug });
+le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
+le.core = require(&#x27;./lib/core&#x27;);
+var log = le.log || _log;
 
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.letsencrypt.create" id="apidoc.module.letsencrypt.create">module letsencrypt.create</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.letsencrypt.create.create" id="apidoc.element.letsencrypt.create.create">
-        function <span class="apidocSignatureSpan">letsencrypt.</span>create
-        <span class="apidocSignatureSpan">(le)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">create = function (le) {
-  var PromiseA = require(&#x27;bluebird&#x27;);
-
-  le.acme = le.acme || ACME.create({ debug: le.debug });
-  le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
-  le.core = require(&#x27;./lib/core&#x27;);
-  var log = le.log || _log;
-
-  if (!le.challenges) {
-    le.challenges = {};
-  }
-  if (!le.challenges[&#x27;http-01&#x27;]) {
-    le.challenges[&#x27;http-01&#x27;] = require(&#x27;le-challenge-fs&#x27;).create({ debug: le.debug });
-  }
-  if (!le.challenges[&#x27;tls-sni-01&#x27;]) {
-    le.challenges[&#x27;tls-sni-01&#x27;] = require(&#x27;le-challenge-sni&#x27;).create({ debug: le.debug });
-  }
-  if (!le.challenges[&#x27;dns-01&#x27;]) {
-    try {
-      le.challenges[&#x27;dns-01&#x27;] = require(&#x27;le-challenge-ddns&#x27;).create({ debug: le.debug });
-    } catch(e) {
-      try {
-        le.challenges[&#x27;dns-01&#x27;] = require(&#x27;le-challenge-dns&#x27;).create({ debug: le.debug });
-      } catch(e) {
-        // not yet implemented
-      }
-    }
-  }
-
-  le = LE._undefine(le);
-  le.acmeChallengePrefix = LE.acmeChallengePrefix;
-  le.rsaKeySize = le.rsaKeySize || LE.rsaKeySize;
-  le.challengeType = le.challengeType || LE.challengeType;
-  le._ipc = ipc;
-  le.agreeToTerms = le.agreeToTerms || function (args, agreeCb) {
-    agreeCb(new Error(&#x22;&#x27;agreeToTerms&#x27; was not supplied to LE and &#x27;agreeTos&#x27; was not supplied to LE.register&#x22;));
-  };
-
-  if (!le.renewWithin) { le.renewWithin = 7 * DAY; }
-  // renewBy has a default in le-sni-auto
-
-  if (!le.server) {
-    throw new Error(&#x22;opts.server must be set to &#x27;staging&#x27; or a production url, such as LE.productionServerUrl&#x27;&#x22;);
-  }
-  if (&#x27;staging&#x27; === le.server) {
-    le.server = LE.stagingServerUrl;
-  }
-  else if (&#x27;production&#x27; === le.server) {
-    le.server = LE.productionServerUrl;
-  }
-
-  if (le.acme.create) {
-    le.acme = le.acme.create(le);
-  }
-  le.acme = PromiseA.promisifyAll(le.acme);
-  le._acmeOpts = le.acme.getOptions();
-  Object.keys(le._acmeOpts).forEach(function (key) {
-    if (!(key in le)) {
-      le[key] = le._acmeOpts[key];
-    }
-  });
-
-  if (le.store.create) {
-    le.store = le.store.create(le);
-  }
-  le.store = PromiseA.promisifyAll(le.store);
-  le.store.accounts = PromiseA.promisifyAll(le.store.accounts);
-  le.store.certificates = PromiseA.promisifyAll(le.store.certificates);
-  le._storeOpts = le.store.getOptions();
-  Object.keys(le._storeOpts).forEach(function (key) {
-    if (!(key in le)) {
-      le[key] = le._storeOpts[key];
-    }
-  });
-
-
-  //
-  // Backwards compat for &#x3c;= v2.1.7
-  //
-  if (le.challenge) {
-    console.warn(&#x22;Deprecated use of le.challenge. Use le.challenges[&#x27;&#x22; + LE.challengeType + &#x22;&#x27;] instead.&#x22;);
-    le.challenges[le.challengeType] = le.challenge;
-  }
-
-  LE.challengeTypes.forEach(function (challengeType) {
-    var challenger = le.challenges[challengeType];
-
-    if (!challenger) {
-      return;
-    }
-
-    if (challenger.create) {
-      challenger = le.challenges[challengeType] = challenger.create(le);
-    }
-    challenger = le.challenges[challengeType] = PromiseA.promisifyAll(challenger);
-    le[&#x27;_challengeOpts_&#x27; + challengeType] = challenger.getOptions();
-    Object.keys(le[&#x27;_challengeOpts_&#x27; + challengeType]).forEach(function (key) {
-      if (!(key in le)) {
-        le[key] = le[&#x27;_challengeOpts_&#x27; + challengeType][key];
-      }
-    });
-
-    // TODO wrap these here and now with tplCopy?
-    if (!challenger.set || 5 !== challenger.set.length) {
-      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].set receives the wrong number of arguments.&#x22;
-        + &#x22; You must define setChallenge as function (opts, domain, token, keyAuthorization, cb) { }&#x22;);
-    }
-    if (challenger.get &#x26;&#x26; 4 !== challenger.get.length) {
-      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].get receives the wrong number of arguments.&#x22;
-        + &#x22; You must define getChallenge as function (opts, domain, token, cb) { }&#x22;);
-    }
-    if (!challenger.remove || 4 !== challenger.remove.length) {
-      throw new Error(&#x22;le.challenges[&#x22; + challengeType + &#x22;].remove receives the wrong number of arguments.&#x22;
-        + &#x22; You must define removeChallenge as function (opts, domain, token, cb) { }&#x22;);
-    }
-    if (!challenger.loopback || 5 !== challenger.loopback.length) ...</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-### Overly Simplified Example
-
-Against my better judgement I&#x27;m providing a terribly oversimplified example
-of how to use this library:
-
-```javascript
-var le = require(&#x27;letsencrypt&#x27;).<span class="apidocCodeKeywordSpan">create</span>({ server: &#x27;staging&#x27; });
-
-var opts = {
-domains: [&#x27;example.com&#x27;], email: &#x27;user@email.com&#x27;, agreeTos: true
-};
-
-le.register(opts).then(function (certs) {
-console.log(certs);
+if (!le.challenges) {
+  le.challenges = {};
+}
 ...</pre></li>
     </ul>
 
@@ -880,21 +943,21 @@ console.log(certs);
   };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+});
 
-### Overly Simplified Example
-
-Against my better judgement I&#x27;m providing a terribly oversimplified example
-of how to use this library:
-
-```javascript
-var le = require(&#x27;letsencrypt&#x27;).<span class="apidocCodeKeywordSpan">create</span>({ server: &#x27;staging&#x27; });
-
-var opts = {
-domains: [&#x27;example.com&#x27;], email: &#x27;user@email.com&#x27;, agreeTos: true
+return le;
 };
+LE.create = function (le) {
+var PromiseA = require(&#x27;bluebird&#x27;);
 
-le.register(opts).then(function (certs) {
-console.log(certs);
+le.acme = le.acme || ACME.<span class="apidocCodeKeywordSpan">create</span>({ debug: le.debug });
+le.store = le.store || require(&#x27;le-store-certbot&#x27;).create({ debug: le.debug });
+le.core = require(&#x27;./lib/core&#x27;);
+var log = le.log || _log;
+
+if (!le.challenges) {
+  le.challenges = {};
+}
 ...</pre></li>
     </ul>
 
